@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+      <div class="row justify-content-md-center" style="margin-bottom: 30px;margin-top: 20px">
+          <h1>Medical catalog</h1>
+      </div>
+    </div>
+
+      <div class="container">
+      <div class="row justify-content-md-center" style="margin-bottom: 30px;margin-top: 20px">
+      <input type="text" id="myInput" onkeyup="search()"  class="form-control col col-lg-4" placeholder="Search for databases..">
+      </div>
+      </div>
+<div class="container">
+<ul id="myUL">
+    {% for db in object_list %}
+        <li style="list-style-type: none;">
+  <table class="table" id="table_list">
+    <thead>
+      <tr>
+        <th><a href="{% url 'db-detail' db.id %}">{{ db.name }}</a></th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Description: {{ db.description }}</td>
+      </tr>
+      <tr>
+        <td>Author: {{ db.author }}</td>
+        <td>Tags: {{ db.keywords }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+            </li>
+{% empty %}
+    <h3>There are no databases added.</h3>
+{% endfor %}
+</ul>
+</div>
+<script>
+function search() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+{% endblock %}

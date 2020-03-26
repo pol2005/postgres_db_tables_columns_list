@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row" style="margin-top: 20px; margin-bottom: 30px">
+    <h1>Edit database <b>{{ object.name }} </b></h1>
+    </div>
+    <div class="row">
+        <form method="post">{% csrf_token %}
+            {{ form | crispy }}
+            <input type="submit" class="btn btn-primary" value="Update">
+        </form>
+        </div>
+    </div>
+{% endblock %}

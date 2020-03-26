@@ -1,0 +1,35 @@
+    {% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row"></div>
+    <div class="row">
+<form method="post" class="uniForm">{% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" class="btn btn-primary" value="Update">
+</form></div>
+    <li style="list-style-type: none; margin-top: 30px">
+  <table class="table" id="table_list">
+    <thead>
+      <tr>
+        <th>Database</th>
+          <th>Table name</th>
+          <th>Column name</th>
+          <th>Column type</th>
+          <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ object.table.db.name }}</td>
+          <td>{{ object.table.name }}</td>
+            <td>{{ object.name }}</td>
+          <td>{{ object.column_type }}</td>
+          <td>{% if object.description %}{{ object.description }}{% else %} No description yet {% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
+            </li>
+    </div>
+{% endblock %}

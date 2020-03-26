@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+
+      <div class="container">
+      <div class="row">
+      <ul class="list-group" style="margin-bottom: 50px;margin-top: 20px; width:100%;word-wrap: break-word;">
+          <li class="list-group-item active" > <a href="{%  url 'db-update' object.id %}" style="color: black">Database: {{ object.name }}</a></li>
+          <li class="list-group-item">Full description: {{ object.full_desription }}</li>
+          <li class="list-group-item">Author: {{ object.author }}</li>
+          <li class="list-group-item">Subject: {{ object.subject }}</li>
+          <li class="list-group-item">Tags: {{ object.keywords }}</li>
+      </ul>
+       </div>
+      </div>
+
+<div class="container">
+{% for table in table_list %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>{{table.name}}</th>
+          <th>Column types</th>
+          <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for column in table.columnlist_set.all %}
+      <tr>
+        <td>{{ column.name }}</td>
+      <td>{{ column.column_type }}</td>
+      <td>{% if column.description %}<a href="{% url 'column-update' column.id %}">{{ column.description }}</a> {% else %}
+      <a href="{% url 'column-update' column.id %}">Add description</a> {% endif %}
+      </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}
+
+</div>
+
+{% endblock %}
